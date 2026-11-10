@@ -1,0 +1,117 @@
+# Bug-bounty program profiles for System Agent.
+#
+# This file is REFERENCE DATA only. It is never executed and never grants any
+# capability. It records, for each authorized program, the research scope, the
+# bug-class -> severity mapping used for triage, the fields a submission needs,
+# and the public reference domains. Reward amounts and exact rules change over
+# time: always confirm the current rules at the program's official page before
+# submitting. System Agent only reads source, cites evidence, triages, and
+# drafts disclosure reports. It does not write or run exploits.
+
+programs:
+  kctf:
+    name: Google kernelCTF (kernel VRP)
+    domain: kernel                    # drives which source adapter triage uses
+    summary: >-
+      Google's kernelCTF rewards novel exploitable vulnerabilities in the Linux
+      kernel demonstrated against kernelCTF lab instances (LTS, COS, and
+      mitigation instances). System Agent helps with source-level root-cause
+      analysis, bug-class classification, affected-version reasoning, and
+      drafting the required write-up. Capturing a flag on a live instance and
+      any exploitation are performed by the researcher, outside this tool.
+    official_rules: https://google.github.io/security-research/kernelctf/rules.html
+    scope:
+      - Memory-safety and logic bugs in the Linux kernel reachable on a
+        kernelCTF target instance (e.g. via unprivileged user namespaces or
+        exposed subsystems), subject to the current official rules.
+      - Novel (0-day) bugs, and in defined windows 1-day bugs with a public fix,
+        per the rules' submission categories.
+      - Mitigation-bypass instances where the rules invite them.
+    out_of_scope:
+      - Bugs not reachable on a kernelCTF target / outside the attack surface
+        the rules define.
+      - Duplicate submissions already accepted.
+      - Anything requiring action against systems you are not authorized to test.
+    # Triage severity is about exploitability tier, not a CVSS number. These are
+    # qualitative buckets to structure the write-up; the payout tier is decided
+    # by Google under the official rules.
+    severity_tiers: [full-chain-exploit, strong-primitive, limited-primitive, info-leak-only]
+    bug_classes:
+      use-after-free:      {tier: strong-primitive,  note: "Common kernelCTF class; identify the object, the freeing path, and the dangling use. Note SLUB cache and whether cross-cache is needed."}
+      double-free:         {tier: strong-primitive,  note: "Identify both free sites and the window; note allocator and freelist impact."}
+      out-of-bounds-write: {tier: strong-primitive,  note: "Bound the overflow: which allocation, controllable length/offset, adjacent objects."}
+      out-of-bounds-read:  {tier: limited-primitive, note: "Often an info-leak primitive; note what adjacent data is disclosed."}
+      type-confusion:      {tier: strong-primitive,  note: "Identify the two types and the path that conflates them."}
+      race-condition:      {tier: strong-primitive,  note: "Name the two racing paths, the shared object, and the missing/incorrect lock."}
+      uninitialized-memory: {tier: info-leak-only,    note: "Identify the uninitialized field and the copy-to-user path."}
+      integer-overflow:    {tier: limited-primitive, note: "Show the arithmetic and how it feeds a size/index; usually a precursor to OOB."}
+      null-deref:          {tier: info-leak-only,    note: "Usually DoS only on modern kernels; note if it is actually a more serious confusion."}
+      logic-privesc:       {tier: strong-primitive,  note: "Explain the access-control or state-machine flaw and the privilege gained."}
+    report_fields:
+      - title
+      - affected_subsystem
+      - affected_versions          # e.g. "6.6 LTS, confirmed at <commit>"
+      - bug_class
+      - novelty                    # 0-day | 1-day (with fix commit) | unsure
+      - fix_commit                 # upstream fixing commit if known, else "none found"
+      - root_cause                 # cite source path:line
+      - reachability               # how the vulnerable code is reached on target
+      - affected_config            # CONFIG_* / instance (LTS/COS/mitigation)
+      - impact                     # primitive obtained, cited
+      - reproduction               # trigger steps / crash evidence (no weaponized exploit here)
+      - crash_evidence             # KASAN/KFENCE/lockdep output, as untrusted evidence
+    checklist:
+      - Root cause is cited to specific source path:line in the kernelCTF target tree.
+      - Bug class and affected version range stated and justified from source.
+      - Searched for an upstream fix commit to decide 0-day vs 1-day.
+      - Confirmed the code is reachable on the claimed target instance.
+      - Report distinguishes observation from inference; unverified items are marked.
+      - Submitting through the official kernelCTF process under its current rules.
+    # Target instances. System Agent can scaffold a LOCAL crash-reproduction /
+    # debugging VM for one of these (`env init kctf --instance <key>`). It writes
+    # only review-ready text (a QEMU boot script, a gdb helper, config notes, a
+    # fetch checklist, a manifest). It never downloads kernels or runs the VM;
+    # exact versions, configs, and artifacts come from the official release.
+    instances:
+      lts:
+        description: Latest upstream Linux LTS kernel instance.
+        kernel: "Linux LTS (e.g. 6.6.x) — see the specific release for the exact version/commit."
+        config_focus:
+          - CONFIG_USER_NS and the unprivileged attack surface it exposes
+          - standard distro-like hardening (KASLR, SMEP/SMAP, KPTI)
+      cos:
+        description: Container-Optimized OS kernel instance.
+        kernel: "COS kernel — see the specific release for the exact version/commit."
+        config_focus:
+          - COS-specific config deltas vs. mainline
+          - container/namespace reachable surface
+      mitigation:
+        description: Mitigation instance with extra kernelCTF hardening enabled.
+        kernel: "LTS base plus the kernelCTF mitigation patch set — see the release."
+        config_focus:
+          - extra slab/heap hardening beyond upstream defaults
+          - additional exploit mitigations specific to the mitigation instance
+    artifacts:
+      release_page: https://github.com/google/security-research/tree/master/kernelctf
+      note: >-
+        Each per-release directory publishes the bzImage, kernel .config, the
+        rootfs/ramdisk, and metadata (exact source commit, checksums). Obtain
+        them yourself from the official release and verify the checksums; System
+        Agent does not fetch, build, or run them.
+      files:
+        - bzImage            # target kernel image
+        - .config            # exact kernel configuration of the instance
+        - rootfs/ramdisk     # provided root filesystem for the VM
+        - metadata.json      # exact source commit + checksums
+
+# Public reference domains relevant to kernelCTF research. Add the ones you need
+# to the `network.allowed_domains` list in the active mode config before `fetch`.
+reference_domains:
+  - google.github.io            # kernelCTF rules, faq, server docs, security-research pages
+  - github.com                  # google/security-research, torvalds/linux, google/syzkaller
+  - raw.githubusercontent.com   # raw release artifacts / metadata
+  - git.kernel.org              # upstream git trees and commits
+  - docs.kernel.org             # official kernel documentation
+  - lwn.net                     # kernel development and security coverage
+  - nvd.nist.gov                # CVE records
+  - bughunters.google.com       # Google VRP portal

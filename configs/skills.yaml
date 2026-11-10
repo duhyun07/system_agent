@@ -1,0 +1,39 @@
+skills:
+  filesystem:
+    read_file: allow
+    list_dir: allow
+    search_files: allow
+    grep: allow
+    file_info: allow
+    write_file: workspace_only
+    edit_file: approval_required
+    apply_patch: approval_required
+  kernel:
+    # Read-only kernel analysis skills: available in every mode.
+    kernel_source_search: allow
+    kernel_function_lookup: allow
+    kernel_callgraph_lookup: allow
+    kernel_config_lookup: allow
+    kernel_commit_diff: allow
+    kernel_log_parse: allow
+    kernel_crash_deduplicate: allow
+    kernel_build_info: allow
+    kernel_coverage_read: allow
+    kernel_vm_status: allow
+    # Dynamic test execution: CLI-only, approval-gated, isolation-required.
+    kernel_test_run: approval_required
+  network:
+    fetch:
+      offline: allowlisted
+      online: allowlisted
+      hybrid: allowlisted_and_payload_approval
+    web_search:
+      offline: allowlisted
+      online: allowlisted
+      hybrid: allowlisted_and_payload_approval
+limits:
+  max_tool_calls_per_task: 30
+  max_read_bytes: 1048576
+  max_fetch_bytes: 2097152
+  max_fetch_redirects: 3
+  max_execution_seconds: 120

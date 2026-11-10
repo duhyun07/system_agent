@@ -1,0 +1,25 @@
+# Resource budget for the target host (16GB RAM, 8GB VRAM, ~771GB free disk).
+#
+# The orchestrator and skills enforce these at the application level. One LLM
+# inference and one expensive build/test run at a time.
+
+inference:
+  max_parallel: 1                  # serialized local inference (see llm/ollama_provider.py lock)
+  unload_before_build: true        # free the model before an expensive build/test
+
+build_and_test:
+  max_parallel_jobs: 1
+  max_worker_processes: 2
+
+source_analysis:
+  max_chunk_bytes: 8192            # bounded source chunks fed to the local model
+  max_read_bytes: 1048576
+
+limits:
+  min_free_memory_gb: 1.0
+  min_free_disk_gb: 20.0
+  oom_backoff: graceful            # handle OOM by aborting the task, never the host
+
+notes:
+  - Do not assume KVM acceleration in WSL2; kernel_vm_status reports the real state.
+  - Dynamic tests run only in an isolated VM, approval-gated (kernel_test_run).

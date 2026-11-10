@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "system-agent"
+version = "0.1.0"
+description = "Local-first Linux kernel research platform for Google kernelCTF"
+requires-python = ">=3.11"
+dependencies = ["httpx>=0.27,<1", "openai>=1.70", "PyYAML>=6,<7", "jsonschema>=4,<5", "regex>=2024,<2027"]
+
+[project.optional-dependencies]
+test = ["pytest>=7", "pytest-asyncio>=0.21"]
+
+[project.scripts]
+system-agent = "cli:main"
+
+[tool.setuptools]
+py-modules = ["cli"]
+packages = ["core", "llm", "skills", "skills.filesystem", "skills.network", "skills.kernel", "security", "agents", "agents.online", "agents.kernel", "adapters", "adapters.kernel"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

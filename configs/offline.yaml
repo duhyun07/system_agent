@@ -1,0 +1,52 @@
+llm:
+  ollama_url: http://127.0.0.1:11434
+  ollama_model: qwen3:4b
+  code_model: qwen2.5-coder:7b
+  num_ctx: 8192
+  # Offload model layers to the GPU (RTX 4060 8GB). 999 = offload every layer that
+  # fits in VRAM; Ollama clamps to what the GPU can hold and spills the rest to CPU.
+  # Set to 0 to force CPU-only.
+  num_gpu: 999
+network:
+  search_provider: duckduckgo   # keyless web search; no API key required
+  allowed_domains:
+    # Search endpoint (web_search)
+    - html.duckduckgo.com
+    - "*.duckduckgo.com"
+    - duckduckgo.com
+    # Kernel / CTF / vulnerability research sources (fetch)
+    - kernel.org
+    - "*.kernel.org"
+    - lwn.net
+    - "*.openwall.com"
+    - nvd.nist.gov
+    - cve.mitre.org
+    - "*.mitre.org"
+    - github.com
+    - "*.github.com"
+    - raw.githubusercontent.com
+    - "*.githubusercontent.com"
+    - access.redhat.com
+    - bugzilla.redhat.com
+    - git.kernel.org
+    - docs.kernel.org
+    # kernelCTF references
+    - google.github.io            # kernelCTF rules / faq / server / security-research pages
+    - bughunters.google.com
+limits:
+  max_tool_calls_per_task: 30
+  max_read_bytes: 1048576
+  max_fetch_bytes: 2097152
+  max_fetch_redirects: 3
+  max_execution_seconds: 600
+  max_input_tokens: 1000000
+  max_output_tokens: 1000000
+  max_context_chars: 4000000
+  max_model_tool_output_bytes: 8192
+
+workspace_roots:
+  # Authorized local kernel checkouts used for offline source analysis. Add the
+  # exact trees you are authorized to research; unconfigured roots are rejected.
+  - /home/pwner7/linux-6.12
+  - /home/pwner7/linux-7.3.3
+  - /home/pwner7/kctf

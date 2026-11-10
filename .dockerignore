@@ -1,0 +1,14 @@
+.git
+.agents
+.aws
+.codex
+.venv
+.env*
+!.env.example
+research
+evidence
+reports
+logs
+tests
+__pycache__
+*.pyc

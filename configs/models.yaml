@@ -1,0 +1,21 @@
+# Model roster for System Agent (kernelCTF research platform).
+#
+# Offline research uses Ollama on loopback only. Online setup uses the OpenAI
+# Responses API. Tuned for the target host: Intel i5-14400F, RTX 4060 8GB,
+# 16GB RAM, WSL2 Ubuntu. Run one inference at a time.
+
+offline:
+  provider: ollama
+  host: http://127.0.0.1:11434
+  default_model: qwen3:4b          # general reasoning / triage
+  code_model: qwen2.5-coder:7b     # optional, for source-heavy analysis
+  context_length: 8192
+  temperature: 0.1
+  max_parallel_requests: 1
+  max_loaded_models: 1
+
+online:
+  provider: openai
+  model: ""                        # set a currently available Responses API model
+  input_usd_per_million: 0         # set current pricing before use
+  output_usd_per_million: 0

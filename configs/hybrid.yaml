@@ -1,0 +1,19 @@
+llm:
+  ollama_url: http://127.0.0.1:11434
+  ollama_model: qwen3:4b
+  openai_model: ""  # Set only when explicit cloud tasks are needed.
+  input_usd_per_million: 0
+  output_usd_per_million: 0
+network:
+  search_provider: duckduckgo
+  allowed_domains:
+    - html.duckduckgo.com
+    - "*.duckduckgo.com"
+    - duckduckgo.com
+limits:
+  max_tool_calls_per_task: 30
+  max_spend_usd: 0
+  max_read_bytes: 1048576
+  max_fetch_bytes: 2097152
+  max_fetch_redirects: 3
+  max_execution_seconds: 120
