@@ -46,13 +46,7 @@ layout:
 
 <p align="center"><button type="button" class="button primary" data-action="ask" data-icon="gitbook-assistant">How can we help?</button><a href="https://gitbook.com/" class="button secondary" data-icon="paper-plane">Contact support</a></p>
 
-&#x20;
-
-<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><h3><i class="fa-leaf" style="color:$primary;">:leaf:</i></h3></td><td><h4><strong>Getting started</strong></h4></td><td>Get help with the basics</td><td><a href="https://app.gitbook.com/s/1DoBZPe86nY67up1Nzul/getting-started">Getting started</a></td></tr><tr><td><h3><i class="fa-money-bill-wave" style="color:$primary;">:money-bill-wave:</i></h3></td><td><h4><strong>Plans and billing</strong></h4></td><td>Get help with your billing</td><td><a href="https://app.gitbook.com/s/1DoBZPe86nY67up1Nzul/plans-billing">Plans and billing</a></td></tr><tr><td><h3><i class="fa-computer-mouse" style="color:$primary;">:computer-mouse:</i></h3></td><td><h4><strong>Admin</strong></h4></td><td>Manage your account</td><td><a href="https://app.gitbook.com/s/1DoBZPe86nY67up1Nzul/admin">Admin</a></td></tr><tr><td><h3><i class="fa-plug" style="color:$primary;">:plug:</i></h3></td><td><h4><strong>Integrations</strong></h4></td><td>Extend your workflow</td><td><a href="https://app.gitbook.com/s/1DoBZPe86nY67up1Nzul/integrations">Integrations</a></td></tr><tr><td><h3><i class="fa-bullhorn" style="color:$primary;">:bullhorn:</i></h3></td><td><h4><strong>Product updates</strong></h4></td><td>See what’s new</td><td><a href="https://app.gitbook.com/s/NiLoddTMNrxReX9H8A1O/">Changelog</a></td></tr><tr><td><h3><i class="fa-heart" style="color:$danger;">:heart:</i></h3></td><td><h4><strong>Community</strong></h4></td><td>Join our community</td><td><a href="https://app.gitbook.com/s/1DoBZPe86nY67up1Nzul/community">Community</a></td></tr></tbody></table>
-
-&#x20;
-
-&#x20;
+<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><h3><i class="fa-leaf" style="color:$primary;">:leaf:</i></h3></td><td><h4><strong>Getting started</strong></h4></td><td>Get help with the basics</td><td><a href="https://app.gitbook.com/s/1DoBZPe86nY67up1Nzul/getting-started">Getting started</a></td></tr><tr><td><h3><i class="fa-money-bill-wave" style="color:$primary;">:money-bill-wave:</i></h3></td><td><h4><strong>Plans and billing</strong></h4></td><td>Get help with your billing</td><td><a href="https://app.gitbook.com/s/1DoBZPe86nY67up1Nzul/plans-billing">Plans and billing</a></td></tr><tr><td><h3><i class="fa-computer-mouse" style="color:$primary;">:computer-mouse:</i></h3></td><td><h4><strong>Admin</strong></h4></td><td>Manage your account</td><td><a href="https://app.gitbook.com/s/1DoBZPe86nY67up1Nzul/admin">Admin</a></td></tr><tr><td><h3><i class="fa-plug" style="color:$primary;">:plug:</i></h3></td><td><h4><strong>Integrations</strong></h4></td><td>Extend your workflow</td><td><a href="https://app.gitbook.com/s/1DoBZPe86nY67up1Nzul/integrations">Integrations</a></td></tr><tr><td><h3><i class="fa-bullhorn" style="color:$primary;">:bullhorn:</i></h3></td><td><h4><strong>Product updates</strong></h4></td><td>See what’s new</td><td><a href="https://app.gitbook.com/o/MkHsB582v7X29lk9XTji/s/NiLoddTMNrxReX9H8A1O/">Changelog</a></td></tr><tr><td><h3><i class="fa-heart" style="color:$danger;">:heart:</i></h3></td><td><h4><strong>Community</strong></h4></td><td>Join our community</td><td><a href="https://app.gitbook.com/s/1DoBZPe86nY67up1Nzul/community">Community</a></td></tr></tbody></table>
 
 {% columns %}
 {% column %}
@@ -125,5 +119,3 @@ Log in to see articles recommended based on your plan and recent activity.
 {% endcontent-ref %}
 {% endcolumn %}
 {% endcolumns %}
-
-&#x20;
