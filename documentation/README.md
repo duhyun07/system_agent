@@ -18,7 +18,7 @@ Welcome to the platform. These docs cover everything from your first project to 
 {% hint style="success" icon="sparkles" %}
 **New: scheduled deploys and team-level audit logs.** Schedule deploys for any future date and review every action taken in your workspace.
 
-<a href="https://app.gitbook.com/s/NiLoddTMNrxReX9H8A1O/" class="button secondary">See what's new</a>
+<a href="https://app.gitbook.com/o/MkHsB582v7X29lk9XTji/s/NiLoddTMNrxReX9H8A1O/" class="button secondary">See what's new</a>
 {% endhint %}
 
 ## Where to start
